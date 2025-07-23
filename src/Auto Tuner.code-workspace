@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "Auto Tuner",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"string": "cpp",
+			"locale": "cpp"
+		}
+	}
+}
