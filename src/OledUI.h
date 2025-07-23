@@ -3,12 +3,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SH110X.h>
 
-Adafruit_SH1107 display = Adafruit_SH1107(64, 128);
-
-#define BUTTON_A 15
-#define BUTTON_B 32
-#define BUTTON_C 14
-
 class OledUI {
     public:
         enum State {
@@ -17,6 +11,16 @@ class OledUI {
             TUNING,
             HOME
         };
+        OledUI() { }
+
+        void init() {
+            display.begin(0x3C, true); // Address 0x3C default
+            display.display();
+            delay(1000);
+            // Clear the buffer.
+            display.clearDisplay();
+            display.display();
+        }
 
         void show_tuning(String note, float cents) {
             if (cur_note != note || cur_cents != cents){
@@ -59,11 +63,15 @@ class OledUI {
         }
 
     private:
-        State state; 
+        static const int BUTTON_A = 15;
+        static const int BUTTON_B = 32;
+        static const int BUTTON_C = 14;
+        Adafruit_SH1107 display = Adafruit_SH1107(64, 128);
         String cur_note; 
         float cur_cents; 
         bool dirty = false;
-    
+        State state = BOOT; 
+
         void refresh_tuning_display(String note, float cents) {
             //display logic
         }
